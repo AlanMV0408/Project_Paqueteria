@@ -19,10 +19,10 @@ class Sucursal{
         return nombre;
     }
     
-    Sucursal();
-    Sucursal(const string& nombre,const string& direccion,const string& telefono,const string& horario);
+    Sucursal(); //Constructor por defecto
+    Sucursal(const string& nombre,const string& direccion,const string& telefono,const string& horario); //Contructor con parámetros
 
-    void imprimir() const;
+    void imprimir() const; 
 
 };
 
