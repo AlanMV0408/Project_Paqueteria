@@ -15,7 +15,10 @@ class Sucursal{
     string horario;
 
     public: 
-
+    string getNombre(){
+        return nombre;
+    }
+    
     Sucursal();
     Sucursal(const string& nombre,const string& direccion,const string& telefono,const string& horario);
 
