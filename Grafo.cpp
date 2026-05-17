@@ -140,18 +140,18 @@ void Grafo::dijkstra(string origen, string destino){
 
     aux = inicioNodo;
     int i = 0;
-    int indiceOrigen = -1, indiceDestino = -1;
+    int indiceOrigen = -1, indiceDestino = -1; // Índices de los nodos de origen y destino
 
-    while(aux != nullptr){
+    while(aux != nullptr){  //
         nodos[i] = aux;
         distancias[i] = MAX;
         previos[i] = nullptr;
         visitados[i] = false;
         
-        if(aux->getSucursal().getNombre() == origen){
+        if(aux->getSucursal().getNombre() == origen){   // Encontrar el índice del nodo de origen
             indiceOrigen = i;
         }
-        if(aux->getSucursal().getNombre() == destino){
+        if(aux->getSucursal().getNombre() == destino){  // Encontrar el índice del nodo de destino
             indiceDestino = i;
         }
 
@@ -167,39 +167,40 @@ void Grafo::dijkstra(string origen, string destino){
 
     distancias[indiceOrigen] = 0; // La distancia al nodo origen es 0
 
-    for(int count = 0; count < numNodos - 1; count++)
+    for(int count = 0; count < numNodos - 1; count++)   // Iterar para encontrar el camino más corto a cada nodo
     {
         int minDistancia = MAX;
         u = -1; // Índice del nodo con la distancia mínima
 
-        for(int v = 0; v < numNodos; v++){
+        for(int v = 0; v < numNodos; v++){  // Encontrar el nodo no visitado con la distancia mínima
 
-            if(!visitados[v] && distancias[v] < minDistancia)
+            if(!visitados[v] && distancias[v] < minDistancia)   // Si el nodo no ha sido visitado y su distancia es menor que la distancia mínima actual
             {
-                minDistancia = distancias[v];
-                u = v;
+                minDistancia = distancias[v];   // Actualizar la distancia mínima
+                u = v;  // Actualizar el índice del nodo con la distancia mínima
             }
         }
 
-        if(u == -1 || u == indiceDestino)
+        if(u == -1 || u == indiceDestino) // Si no se encuentra un nodo no visitado o se ha alcanzado el nodo destino, salir del bucle
         {
             break;
         }
 
         visitados[u] = true;
 
-        Arista *arista = nodos[u]->getListaAristas();
+        Arista *arista = nodos[u]->getListaAristas();   // Obtener la lista de aristas del nodo actual
         while(arista != nullptr)
         {
             int vertice = -1;
 
-            for(int k = 0; k < numNodos; k++){
-                if(nodos[k] == arista->getDestino()){
-                    vertice = k;
+            for(int k = 0; k < numNodos; k++){  // Encontrar el índice del nodo destino de la arista actual
+                if(nodos[k] == arista->getDestino()){   // Si el nodo destino de la arista coincide con el nodo en la lista de nodos
+                    vertice = k;    // Actualizar el índice del nodo destino
                     break;
                 }
             }
-
+            
+            // Si el nodo destino de la arista no ha sido visitado y la distancia al nodo actual más el peso de la arista es menor que la distancia actual al nodo destino
             if(vertice != -1 && !visitados[vertice] && distancias[u] != MAX && distancias[u] + arista->getPeso() < distancias[vertice])
             {
                 distancias[vertice] = distancias[u] + arista->getPeso();
@@ -210,6 +211,7 @@ void Grafo::dijkstra(string origen, string destino){
         }
     }
 
+    // Si la distancia al nodo destino es MAX, significa que no hay un camino disponible entre el nodo de origen y el nodo de destino
     if(distancias[indiceDestino] == MAX)
     {
         cout<<"No hay camino disponible entre "<<origen<<" y "<<destino<<"."<<endl;
@@ -223,11 +225,12 @@ void Grafo::dijkstra(string origen, string destino){
     int indiceCamino = 0;
     Nodo *actual = nodos[indiceDestino];
 
+    // Reconstruir el camino desde el nodo destino hasta el nodo origen utilizando el arreglo de nodos previos
     while(actual != nullptr){
         camino[indiceCamino++] = actual;
         int indiceActual = -1;
 
-        for(int k = 0; k < numNodos; k++){
+        for(int k = 0; k < numNodos; k++){  // Encontrar el índice del nodo actual en la lista de nodos
             if(nodos[k] == actual){
                 indiceActual = k;
                 break;
@@ -236,9 +239,9 @@ void Grafo::dijkstra(string origen, string destino){
         actual = previos[indiceActual];
     }
 
-    for(int k = indiceCamino - 1; k >= 0; k--){
+    for(int k = indiceCamino - 1; k >= 0; k--){ // Imprimir el camino desde el nodo origen hasta el nodo destino
         cout<<"["<<camino[k]->getSucursal().getNombre()<<"]";
-        if(k > 0){
+        if(k > 0){  // Si no es el último nodo en el camino, imprimir una flecha para indicar la conexión entre los nodos
             cout<<" -> ";
         }
         cout<<"\nDistancia total: "<<distancias[indiceDestino]<<endl;
