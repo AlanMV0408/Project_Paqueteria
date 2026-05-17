@@ -87,6 +87,53 @@ void Grafo::eliminarConexion(string origen, string destino){
 
 }
 
+void Grafo::eliminarSucursal(string nombre){
+    if(inicioNodo == nullptr)
+    {
+        cout << "El grafo está vacío." << endl;
+        return;
+    }
+
+    Nodo *aux = inicioNodo;
+    while(aux != nullptr){
+        aux->eliminarArista(nombre); // Eliminar todas las aristas que apuntan a la sucursal a eliminar
+        aux = aux->getSig();
+    }
+
+    if(inicioNodo->getSucursal().getNombre() == nombre) // Si el nodo a eliminar es el nodo inicial
+    {
+        Nodo *tmp = inicioNodo;
+        inicioNodo = inicioNodo->getSig(); // Actualizar el nodo inicial al siguiente nodo
+
+        Arista *arista = tmp->getListaAristas();    // Eliminar todas las aristas del nodo a eliminar
+        while(arista != nullptr)    // Mientras haya aristas en la lista de aristas del nodo a eliminar
+        {
+            Arista *tmpArista = arista;
+            arista = arista->getSig();
+            delete tmpArista;   // Eliminar la arista actual
+            return;
+        }
+    }
+
+    aux = inicioNodo;
+    while(aux->getSig() != nullptr) // Buscar el nodo a eliminar en la lista de nodos
+    {
+        if(aux->getSig()->getSucursal().getNombre() == nombre){  // Si el siguiente nodo es el nodo a eliminar
+            Nodo *tmp = aux->getSig();
+            aux->setSig(tmp->getSig()); // Actualizar el enlace del nodo anterior al nodo siguiente del nodo a eliminar
+
+            Arista *arista = tmp->getListaAristas();
+            while(arista != nullptr){
+                Arista *tmpArista = arista;
+                arista = arista->getSig();
+                delete tmpArista;
+                return;
+            }
+        }
+        aux = aux->getSig();    // Avanzar al siguiente nodo
+    }
+}
+
 void Grafo::mostrarGrafo()
 {
     Nodo *aux = inicioNodo;
