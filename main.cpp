@@ -5,6 +5,19 @@
 
 using namespace std;
 
+void cargarDatosGrafo(Grafo &grafo){
+    grafo.insertarVertice(Sucursal("Centro", "Av. Principal 123", "555-1234", "8:00-18:00"));
+    grafo.insertarVertice(Sucursal("Norte", "Calle Norte 456", "555-5678", "9:00-17:00"));
+    grafo.insertarVertice(Sucursal("Sur", "Calle Sur 789", "555-9012", "10:00-16:00"));
+    grafo.insertarVertice(Sucursal("Este", "Calle Este 321", "555-3456", "8:30-18:30"));
+    grafo.insertarVertice(Sucursal("Oeste", "Calle Oeste 654", "555-7890", "9:30-17:30"));
+    grafo.insertarVertice(Sucursal("Aeropuerto", "Calle A 111", "555-1111", "8:00-18:00"));
+    grafo,insertarVertice(Sucursal("Puerto", "Calle P 222", "555-2222", "9:00-17:00"));
+    grafo.insertarVertice(Sucursal("Zona Industrial", "Calle Z 333", "555-3333", "10:00-16:00"));
+
+    //falta insertar aristas entre las sucursales 
+}
+
 int main(){
     
 
