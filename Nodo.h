@@ -1,7 +1,7 @@
 #ifndef NODO_H
 #define NODO_H
 
-#include "Sucursal.h"
+#include "SUCURSAL.h"
 
 class Nodo; // declaración adelantada para hacer uso de ella
 

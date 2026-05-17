@@ -1,5 +1,5 @@
 #include "Nodo.h"
-
+using namespace std;
 //Funciones y implementaciones de Arista
 Arista::Arista(Nodo *destino, int peso){
     this->destino = destino;
@@ -42,6 +42,16 @@ Arista *Nodo::getListaAristas(){ //devuelve la lista de aristas del nodo
 
 //Agregar una arista
 void Nodo::agregarArista(Nodo *destino, int peso){
+    // Verificar si ya existe
+    Arista *aux = listaAristas;
+    while (aux != nullptr) {
+        if (aux->getDestino() == destino) {
+            cout << "Conexión ya existe." << endl;
+            return;
+        }
+        aux = aux->getSig();
+    }
+    //inserta la nueva arista
     Arista *nuevaArista = new Arista(destino, peso);
     
     if(listaAristas == nullptr){

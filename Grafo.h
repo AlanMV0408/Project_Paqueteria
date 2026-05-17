@@ -2,8 +2,6 @@
 #define GRAFO_H
 #include "Nodo.h"
 
-using namespace std;
-
 class Grafo{
 
 private:

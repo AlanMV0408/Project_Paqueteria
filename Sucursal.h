@@ -1,4 +1,4 @@
-#ifndef SUCURSAl_H
+#ifndef SUCURSAL_H
 #define SUCURSAL_H
 #include <iostream>
 #include <string>
